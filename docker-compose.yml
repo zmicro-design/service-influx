@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  influx:
+    restart: always
+    image: influxdb:${SERVICE_INFLUX_VERSION}
+    ports:
+      - ${SERVICE_INFLUX_HOST}:${SERVICE_INFLUX_PORT}:8086
+      # - 127.0.0.1:8083:8083
+      # - 127.0.0.1:8090:8090
+    environment:
+      TZ: Asia/Shanghai
+      INFLUXDB_DB: ${SERVICE_INFLUX_DB}
+    volumes:
+      - ${SERVICE_DATA}:/var/lib/influxdb
+
+
+networks:
+  default:
+    external: true
+    name: compose-ingress

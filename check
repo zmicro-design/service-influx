@@ -1,0 +1,32 @@
+#!/bin/bash
+
+load inquirer
+
+check() {
+  config::load_file $SERVICE_INFLUX_CONFIG
+
+  if [ -z "$SERVICE_INFLUX_HOST" ]; then
+    inquirer::text "请输入 SERVICE_INFLUX_HOST:" value
+    config::set SERVICE_INFLUX_HOST $value $SERVICE_INFLUX_CONFIG
+  fi
+
+  if [ -z "$SERVICE_INFLUX_PORT" ]; then
+    inquirer::text "请输入 SERVICE_INFLUX_PORT:" value
+    config::set SERVICE_INFLUX_PORT $value $SERVICE_INFLUX_CONFIG
+  fi
+
+  if [ -z "$SERVICE_INFLUX_DB" ]; then
+    inquirer::text "请输入 SERVICE_INFLUX_DB:" value
+    config::set SERVICE_INFLUX_DB $value $SERVICE_INFLUX_CONFIG
+  fi
+  
+  # @TODO load again
+  config::load_file $SERVICE_INFLUX_CONFIG
+
+  # @TODO
+  export SERVICE_INFLUX_HOST=$SERVICE_INFLUX_HOST
+  export SERVICE_INFLUX_PORT=$SERVICE_INFLUX_PORT
+  export SERVICE_INFLUX_DB=$SERVICE_INFLUX_DB
+}
+
+check $@
