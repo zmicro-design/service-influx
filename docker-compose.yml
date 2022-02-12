@@ -10,7 +10,7 @@ services:
       # - 127.0.0.1:8090:8090
     environment:
       TZ: Asia/Shanghai
-      INFLUXDB_HTTP_LOG_ENABLED: false
+      INFLUXDB_HTTP_LOG_ENABLED: 'false'
     volumes:
       - ${SERVICE_DATA}:/var/lib/influxdb
 
